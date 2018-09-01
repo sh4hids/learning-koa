@@ -1,7 +1,9 @@
 const koa = require('koa');
 const koaRouter = require('koa-router');
+const bodyParser = require('koa-bodyparser');
 const app = new koa();
 const router = new koaRouter();
+app.use(bodyParser());
 
 router.get('/', async ctx => {
   ctx.body = {
@@ -31,6 +33,15 @@ router.get('/search', async ctx => {
         age: 25,
       },
     ],
+  };
+});
+
+router.post('/user', async ctx => {
+  let newUser = ctx.request.body;
+
+  ctx.body = {
+    success: true,
+    message: `New user named ${newUser.name} has been created successfully.`,
   };
 });
 
